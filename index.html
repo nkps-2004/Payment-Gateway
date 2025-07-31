@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UPI Payment Page</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Pt. Nand Kishor Public School</h1>
-    <p>Use the button below to pay your school fees via UPI</p>
-    <a id="upi-link" class="pay-button">Pay Now</a>
-  </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <div class="fallback" id="fallback" style="display: none;">
-    <h1>Open in Browser</h1>
-    <p>This page doesn't work properly inside this app.</p>
-    <button onclick="openInBrowser()">Tap to Open in Browser</button>
-  </div>
+  <!-- Force latest HTML every time -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>Pay Fees - Pt. Nand Kishor Public School</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
 
   <script>
-    const upiID = "9415705345@okbizaxis";
-    const businessName = "Pt. Nand Kishor Public School";
+    // Detect Telegram and show warning
+    window.onload = function() {
+      const isTelegram = navigator.userAgent.includes("Telegram");
 
-    // Set the UPI payment link dynamically
-    const upiLink = document.getElementById("upi-link");
-    upiLink.href = `upi://pay?pa=${encodeURIComponent(upiID)}&pn=${encodeURIComponent(businessName)}&cu=INR`;
+      if (isTelegram) {
+        document.getElementById("telegram-warning").style.display = "block";
+      }
+    };
   </script>
+</head>
 
-  <script src="script.js"></script>
+<body>
+  <div class="box">
+    <h2>Pay Your School Fees</h2>
+    <p>Please use the button below to make your UPI payment.</p>
+
+    <!-- UPI Button -->
+    <a
+      class="btn"
+      href="intent://pay?pa=yourupi@bank&pn=Pt.NandKishorSchool&mc=0000&tid=SchoolFees&tr=1234567890&tn=Fees%20Payment&am=1000&cu=INR#Intent;scheme=upi;end;"
+    >
+      Pay Now
+    </a>
+
+    <!-- Telegram warning -->
+    <p id="telegram-warning" class="warning" style="display: none;">
+      ⚠️ UPI may not work inside Telegram.  
+      Please tap the 3-dot menu and choose “Open in Chrome” or another browser.
+    </p>
+  </div>
 </body>
 </html>
