@@ -10,7 +10,7 @@
   <div class="container">
     <h1>Pay Your School Fees</h1>
     <p>Use the button below to pay via UPI</p>
-    <a href="upi://pay?pa=9415705345@upi&pn=Pt.%20Nand%20Kishor%20Public%20School&cu=INR" class="pay-button">Pay Now</a>
+    <a id="upi-link" class="pay-button">Pay Now</a>
   </div>
 
   <div class="fallback" id="fallback" style="display: none;">
@@ -18,6 +18,15 @@
     <p>This page doesn't work properly inside this app.</p>
     <button onclick="openInBrowser()">Tap to Open in Browser</button>
   </div>
+
+  <script>
+    const upiID = "9415705345@okbizaxis";
+    const businessName = "Pt. Nand Kishor Public School";
+
+    // Set the UPI payment link dynamically
+    const upiLink = document.getElementById("upi-link");
+    upiLink.href = `upi://pay?pa=${encodeURIComponent(upiID)}&pn=${encodeURIComponent(businessName)}&cu=INR`;
+  </script>
 
   <script src="script.js"></script>
 </body>
